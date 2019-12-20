@@ -27,6 +27,9 @@ const char kTestCrosGaiaIdMigration[] = "test-cros-gaia-id-migration";
 // Value for kTestCrosGaiaIdMigration indicating that migration is started (i.e.
 // all stored user keys will be converted to GaiaId)
 const char kTestCrosGaiaIdMigrationStarted[] = "started";
+//---***FYDEOS BEGIN***---
+const char kForceKioskMode[] = "force-kiosk-mode";
+//---***FYDEOS END***---
 
 // Controls whether Instant Tethering supports hosts which use the background
 // advertisement model.
@@ -628,6 +631,12 @@ bool IsArcCpuRestrictionDisabled() {
   return base::CommandLine::ForCurrentProcess()->HasSwitch(
       kDisableArcCpuRestriction);
 }
+//---***FYDEOS BEGIN***---
+bool IsKioskModeForced() {
+  return base::CommandLine::ForCurrentProcess()->HasSwitch(
+      kForceKioskMode);  
+}
+//---***FYDEOS END***---
 
 }  // namespace switches
 }  // namespace chromeos

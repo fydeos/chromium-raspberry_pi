@@ -30,6 +30,10 @@ class DemoAppLauncher : public KioskProfileLoader::Delegate {
 
   static bool IsDemoAppSession(const AccountId& account_id);
   static void SetDemoAppPathForTesting(const base::FilePath& path);
+  //---***FYDEOS BEGIN***---
+  inline std::string  GetDemoAppId() {return app_id_;}
+  static DemoAppLauncher* Get();
+  //---***FYDEOS END***---
 
   static const char kDemoAppId[];
 
@@ -43,6 +47,11 @@ class DemoAppLauncher : public KioskProfileLoader::Delegate {
   std::unique_ptr<KioskProfileLoader> kiosk_profile_loader_;
 
   static base::FilePath* demo_app_path_;
+  //---***FYDEOS BEGIN***---
+  void ConfigDemo();
+  std::string app_id_;
+  bool kiosk_mode_;
+  //---***FYDEOS END***---
 
   DISALLOW_COPY_AND_ASSIGN(DemoAppLauncher);
 };

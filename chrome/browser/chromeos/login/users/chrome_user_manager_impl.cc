@@ -1047,7 +1047,10 @@ void ChromeUserManagerImpl::DemoAccountLoggedIn() {
   base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
   command_line->AppendSwitch(::switches::kForceAppMode);
   command_line->AppendSwitchASCII(::switches::kAppId,
-                                  DemoAppLauncher::kDemoAppId);
+  //---***FYDEOS BEGIN***---
+                                  DemoAppLauncher::Get()->GetDemoAppId());
+  //                                DemoAppLauncher::kDemoAppId);
+  //---***FYDEOS END***---
 
   // Disable window animation since the demo app runs in a single full screen
   // window and window animation causes start-up janks.

@@ -287,6 +287,10 @@ COMPONENT_EXPORT(CHROMEOS_CONSTANTS) bool IsGaiaServicesDisabled();
 
 // Returns true if |kDisableArcCpuRestriction| is true.
 COMPONENT_EXPORT(CHROMEOS_CONSTANTS) bool IsArcCpuRestrictionDisabled();
+//---***FYDEOS BEGIN***---
+COMPONENT_EXPORT(CHROMEOS_CONSTANTS) bool IsKioskModeForced();
+
+//---***FYDEOS END***---
 
 }  // namespace switches
 }  // namespace chromeos
