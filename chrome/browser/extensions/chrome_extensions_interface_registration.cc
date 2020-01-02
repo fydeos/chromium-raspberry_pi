@@ -46,7 +46,7 @@ namespace extensions {
 namespace {
 #if defined(OS_CHROMEOS)
 
-#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
 // Resolves InputEngineManager request in InputMethodManager.
 void BindInputEngineManager(
     chromeos::ime::mojom::InputEngineManagerRequest request,
@@ -140,7 +140,7 @@ void RegisterChromeInterfacesForExtension(
   DCHECK(extension);
 #if defined(OS_CHROMEOS)
 
-#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
+#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
   // Registry InputEngineManager for official Google XKB Input only.
   if (extension->id() == chromeos::extension_ime_util::kXkbExtensionId) {
     registry->AddInterface(base::BindRepeating(&BindInputEngineManager));

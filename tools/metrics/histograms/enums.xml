@@ -20033,6 +20033,9 @@ Called by update_net_error_codes.py.-->
   <int value="445" label="PRINTING_ON_JOB_STATUS_CHANGED"/>
   <int value="446" label="DECLARATIVE_NET_REQUEST_ON_RULE_MATCHED_DEBUG"/>
   <int value="447" label="TERMINAL_PRIVATE_ON_SETTINGS_CHANGED"/>
+  <int value="448" label="FYDEOS_SHELL_CLIENT_SYSTEM_NOTIFICATION"/>
+  <int value="449" label="FYDEOS_SHELL_CLIENT_COMMAND_NOTIFICATION"/>
+  <int value="450" label="FYDEOS_SHELL_CLIENT_CUSTOM_NOTIFICATION"/>
 </enum>
 
 <enum name="ExtensionFileWriteResult">
@@ -21525,6 +21528,23 @@ Called by update_net_error_codes.py.-->
   <int value="1423" label="ENTERPRISEREPORTINGPRIVATE_SETDEVICEDATA"/>
   <int value="1424" label="ENTERPRISEREPORTINGPRIVATE_GETDEVICEINFO"/>
   <int value="1425" label="PRINTING_GETPRINTERS"/>
+  <int value="1426" label="NATIVE_WINDOWS_GET"/>
+  <int value="1427" label="NATIVE_WINDOWS_GETALL"/>
+  <int value="1428" label="NATIVE_WINDOWS_UPDATE"/>
+  <int value="1429" label="NATIVE_WINDOWS_REMOVE"/>
+  <int value="1430" label="NATIVE_WINDOWS_CREATE"/>
+  <int value="1431" label="APP_MANAGEMENT_GETAPPLIST"/>
+  <int value="1432" label="APP_MANAGEMENT_INSTALLWEBAPP"/>
+  <int value="1433" label="APP_MANAGEMENT_INSTALLARCAPP"/>
+  <int value="1434" label="COMMAND_LINE_HASSWITCH"/>
+  <int value="1435" label="COMMAND_LINE_REMOVESWITCH"/>
+  <int value="1436" label="COMMAND_LINE_ADDSWITCH"/>
+  <int value="1437" label="SHELL_SYNC_EXEC"/>
+  <int value="1438" label="SHELL_ASYNC_EXEC"/>
+  <int value="1439" label="SHELL_GET_TASK_STATE"/>
+  <int value="1440" label="SHELL_GET_TASK_OUTPUT"/>
+  <int value="1441" label="SHELL_GET_DAEMON_STATE"/>
+  <int value="1442" label="SHELL_FORCE_CLOSE_TASK"/>
 </enum>
 
 <enum name="ExtensionIconState">
@@ -22079,6 +22099,8 @@ Called by update_net_error_codes.py.-->
   <int value="223" label="kPrintingMetrics"/>
   <int value="224" label="kPrinting"/>
   <int value="225" label="kCrashReportPrivate"/>
+  <int value="226" label="kFydeOSPrivate"/>
+  <int value="227" label="kFydeOSShellClient"/>
 </enum>
 
 <enum name="ExtensionServiceVerifyAllSuccess">

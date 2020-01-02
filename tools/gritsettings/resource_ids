@@ -569,6 +569,12 @@
     "META": {"sizes": {"includes": [500],}},
     "includes": [20060],
   },
+  #//---***FYDEOS BEGIN***---
+  "fydeos/extensions/common/fydeos_extensions_resources.grd": {
+    "includes": [20300],
+    "messages": [20310],
+  },
+  #//---***FYDEOS END***---
 
   # END "everything else" section.
   # Everything but chrome/, components/, content/, and ios/

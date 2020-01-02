@@ -467,6 +467,11 @@ enum HistogramValue {
   PRINTING_ON_JOB_STATUS_CHANGED = 445,
   DECLARATIVE_NET_REQUEST_ON_RULE_MATCHED_DEBUG = 446,
   TERMINAL_PRIVATE_ON_SETTINGS_CHANGED = 447,
+  //---***FYDEOS BEGIN***---
+  FYDEOS_SHELL_CLIENT_SYSTEM_NOTIFICATION = 448,
+  FYDEOS_SHELL_CLIENT_COMMAND_NOTIFICATION = 449,
+  FYDEOS_SHELL_CLIENT_CUSTOM_NOTIFICATION = 450,
+  //---***FYDEOS END***---
   // Last entry: Add new entries above, then run:
   // python tools/metrics/histograms/update_extension_histograms.py
   ENUM_BOUNDARY
