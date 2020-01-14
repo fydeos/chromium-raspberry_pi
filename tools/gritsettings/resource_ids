@@ -571,8 +571,8 @@
   },
   #//---***FYDEOS BEGIN***---
   "fydeos/extensions/common/fydeos_extensions_resources.grd": {
-    "includes": [20300],
-    "messages": [20310],
+    "includes": [21300],
+    "messages": [21310],
   },
   #//---***FYDEOS END***---
 
