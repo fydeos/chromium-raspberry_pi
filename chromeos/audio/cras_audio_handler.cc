@@ -836,6 +836,10 @@ void CrasAudioHandler::ActiveOutputNodeChanged(uint64_t node_id) {
   if (GetDeviceFromId(node_id)) {
     LOG(WARNING) << "Active output node changed unexpectedly by system node_id="
                  << "0x" << std::hex << node_id;
+
+    //---***FYDEOS BEGIN***---
+    SetActiveOutputNodes({node_id});
+    //---***FYDEOS END***---
   }
 }
 
