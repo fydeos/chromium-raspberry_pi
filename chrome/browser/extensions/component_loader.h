@@ -21,6 +21,9 @@
 #include "base/values.h"
 #include "build/build_config.h"
 #include "chrome/common/buildflags.h"
+//---***FYDEOS BEGIN***---
+#include "chrome/browser/chromeos/login/demo_mode/demo_app_launcher.h"
+//---***FYDEOS END***---
 
 class Profile;
 
@@ -128,6 +131,9 @@ class ComponentLoader {
 
  private:
   FRIEND_TEST_ALL_PREFIXES(ComponentLoaderTest, ParseManifest);
+//---***FYDEOS BEGIN***---
+  friend class chromeos::DemoAppLauncher;
+//---***FYDEOS END***---
 
   // Information about a registered component extension.
   struct ComponentExtensionInfo {

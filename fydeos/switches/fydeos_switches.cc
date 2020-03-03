@@ -34,6 +34,7 @@ const char kRotate_270[] = "fydeos-rotate-270";
 const char kScreenDpi[] = "fydeos-default-screen-dpi";
 const char kDefaultDSF[] = "fydeos-default-DSF";
 const char KForceCursorCompositing[] = "fydeos-force-cursor-compositing";
+const char kForceKioskMode[] = "force-kiosk-mode";
 } //end of namespace
 
 const char kFydeOSGaiaUrl[] = "fydeos-gaia-url";
@@ -157,6 +158,11 @@ float GetDefaultDSF(float default_value) {
 
 bool ForceCursorCompositing() {
   return base::CommandLine::ForCurrentProcess()->HasSwitch(KForceCursorCompositing);
+}
+
+bool IsKioskModeForced() {
+  return base::CommandLine::ForCurrentProcess()->HasSwitch(
+      kForceKioskMode);
 }
 
 }// namespace switches
