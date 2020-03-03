@@ -28,6 +28,11 @@
 #include "extensions/common/constants.h"
 #include "extensions/common/extension.h"
 #include "ui/base/window_open_disposition.h"
+//---***FYDEOS BEGIN***---
+#include "base/lazy_instance.h"
+#include "base/files/file_util.h"
+#include "base/json/json_file_value_serializer.h"
+//---***FYDEOS END***---
 
 namespace chromeos {
 
@@ -35,12 +40,37 @@ const char DemoAppLauncher::kDemoAppId[] = "klimoghijjogocdbaikffefjfcfheiel";
 const base::FilePath::CharType kDefaultDemoAppPath[] =
     FILE_PATH_LITERAL("/usr/share/chromeos-assets/demo_app");
 
+//---***FYDEOS BEGIN***---
+namespace {
+const base::FilePath::CharType kDemoBasePath[] =
+    FILE_PATH_LITERAL("/usr/local/share/kiosk_app");
+const base::FilePath::CharType kDemoConfig[] =
+    FILE_PATH_LITERAL("config.json");
+const char kAppId[] = "AppId";
+const char kAppPath[] = "AppPath";
+const char kEnable[] = "Enable";
+const base::FilePath::CharType kDefaultManifest[] =
+    FILE_PATH_LITERAL("manifest.json");
+} // namespace
+//---***FYDEOS END***---
 // static
 base::FilePath* DemoAppLauncher::demo_app_path_ = NULL;
+//---***FYDEOS BEGIN***---
+static base::LazyInstance<DemoAppLauncher>::DestructorAtExit instance =
+    LAZY_INSTANCE_INITIALIZER;
+DemoAppLauncher* DemoAppLauncher::Get() {
+    return instance.Pointer();
+}
+//---***FYDEOS END***---
 
 DemoAppLauncher::DemoAppLauncher() {
-  if (!demo_app_path_)
+  //---***FYDEOS BEGIN***---
+  ConfigDemo();
+  //---***FYDEOS END***---
+  if (!demo_app_path_) {
     demo_app_path_ = new base::FilePath(kDefaultDemoAppPath);
+    app_id_ = std::string(kDemoAppId);
+  }
 }
 
 DemoAppLauncher::~DemoAppLauncher() {
@@ -75,8 +105,25 @@ void DemoAppLauncher::OnProfileLoaded(Profile* profile) {
   extensions::ExtensionService* extension_service =
       extensions::ExtensionSystem::Get(profile)->extension_service();
   CHECK(demo_app_path_);
-  const std::string extension_id = extension_service->component_loader()->Add(
-      IDR_DEMO_APP_MANIFEST, *demo_app_path_);
+  //---***FYDEOS BEGIN***---
+  std::string manifest;
+  if (kiosk_mode_) {
+    base::FilePath manifest_path = demo_app_path_->Append(kDefaultManifest);
+    if (!base::PathExists(manifest_path)) {
+      VLOG(1) << "No found " << manifest_path;
+      chrome::AttemptUserExit();
+      return;
+    }
+    if (!base::ReadFileToString(manifest_path, &manifest)) {
+      VLOG(1) << "Read error of: " << manifest_path;
+      chrome::AttemptUserExit();
+      return;
+    }
+  }
+  const std::string extension_id = kiosk_mode_ ? 
+      extension_service->component_loader()->Add(manifest, *demo_app_path_, true) :
+			extension_service->component_loader()->Add(IDR_DEMO_APP_MANIFEST, *demo_app_path_);
+  //---***FYDEOS END***---
 
   extensions::ExtensionRegistry* extension_registry =
       extensions::ExtensionRegistry::Get(profile);
@@ -85,16 +132,20 @@ void DemoAppLauncher::OnProfileLoaded(Profile* profile) {
   if (!extension) {
     // We've already done too much setup at this point to just return out, it
     // is safer to just restart.
+//---***FYDEOS BEGIN***---
+    VLOG(1) << "No extension found:" << extension_id ;
+//---***FYDEOS END***---
     chrome::AttemptUserExit();
     return;
   }
 
   // Disable network before launching the app.
+/*
   LOG(WARNING) << "Disabling network before launching demo app..";
   NetworkHandler::Get()->network_state_handler()->SetTechnologyEnabled(
       NetworkTypePattern::Physical(), false,
       chromeos::network_handler::ErrorCallback());
-
+*/
   apps::LaunchService::Get(profile)->OpenApplication(apps::AppLaunchParams(
       extension_id, apps::mojom::LaunchContainer::kLaunchContainerWindow,
       WindowOpenDisposition::NEW_WINDOW,
@@ -110,5 +161,32 @@ void DemoAppLauncher::OnProfileLoadFailed(KioskAppLaunchError::Error error) {
   LOG(ERROR) << "Loading the Kiosk Profile failed: "
              << KioskAppLaunchError::GetErrorMessage(error);
 }
+
+//---***FYDEOS BEGIN***---
+void DemoAppLauncher::ConfigDemo() {
+  kiosk_mode_ = false;
+  base::FilePath base_path(kDemoBasePath);
+  base::FilePath config_path = base_path.Append(kDemoConfig);
+  if (!base::PathExists(config_path))
+    return;
+  JSONFileValueDeserializer deserializer(config_path);
+  std::unique_ptr<base::DictionaryValue> config =
+    base::DictionaryValue::From(deserializer.Deserialize(nullptr, nullptr));
+  if (!config)
+    return;
+  if (!config->GetString(kAppId, &app_id_))
+    return;
+  std::string app_rel_path;
+  if (!config->GetString(kAppPath, &app_rel_path))
+    return;
+   base::FilePath app_path = base_path.Append(app_rel_path);
+  if (!base::PathExists(app_path))
+    return;
+  if (!config->GetBoolean(kEnable, &kiosk_mode_))
+    return;
+  if (kiosk_mode_)
+    demo_app_path_ = new base::FilePath(app_path);
+}
+//---***FYDEOS END***---
 
 }  // namespace chromeos
