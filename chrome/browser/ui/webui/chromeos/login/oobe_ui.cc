@@ -122,6 +122,9 @@
 #include "ui/display/display.h"
 #include "ui/events/devices/device_data_manager.h"
 #include "ui/events/devices/input_device.h"
+//---***FYDEOS BEGIN***---
+#include "fydeos/switches/fydeos_switches.h"
+//---***FYDEOS END***---
 
 namespace chromeos {
 
@@ -805,7 +808,11 @@ void OobeUI::ShowSigninScreen(SigninScreenHandlerDelegate* delegate) {
   // Check our device mode.
   policy::BrowserPolicyConnectorChromeOS* connector =
       g_browser_process->platform_part()->browser_policy_connector_chromeos();
-  if (connector->GetDeviceMode() == policy::DEVICE_MODE_LEGACY_RETAIL_MODE) {
+  //---***FYDEOS BEGIN***---
+
+  if (connector->GetDeviceMode() == policy::DEVICE_MODE_LEGACY_RETAIL_MODE || 
+    fydeos::switches::IsKioskModeForced()) {
+  //---***FYDEOS END***---
     // If we're in legacy retail mode, the best thing we can do is launch the
     // new offline demo mode.
     LoginDisplayHost::default_host()->StartDemoAppLaunch();

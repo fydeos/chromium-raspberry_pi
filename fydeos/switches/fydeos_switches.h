@@ -8,6 +8,7 @@
 #include <string>
 #include "base/feature_list.h"
 #include "chromeos/chromeos_export.h"
+#include "base/component_export.h"
 #include "ash/ash_export.h"
 #include "ui/display/manager/display_manager_export.h"
 
@@ -45,6 +46,7 @@ CHROMEOS_EXPORT int GetAccelDataPattern();
 CHROMEOS_EXPORT float GetDefaultScreenDpi(float default_value);
 CHROMEOS_EXPORT float GetDefaultDSF(float default_value);
 CHROMEOS_EXPORT bool ForceCursorCompositing();
+COMPONENT_EXPORT(CHROMEOS_CONSTANTS) bool IsKioskModeForced();
 
 }
 }
