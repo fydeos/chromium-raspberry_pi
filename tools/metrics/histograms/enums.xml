@@ -21096,6 +21096,9 @@ Called by update_extension_histograms.py.-->
       label="PASSWORDS_PRIVATE_ON_COMPROMISED_CREDENTIALS_INFO_CHANGED"/>
   <int value="454" label="TERMINAL_PRIVATE_ON_A11Y_STATUS_CHANGED"/>
   <int value="455" label="PASSWORDS_PRIVATE_ON_PASSWORD_CHECK_STATUS_CHANGED"/>
+  <int value="456" label="FYDEOS_SHELL_CLIENT_SYSTEM_NOTIFICATION"/>
+  <int value="457" label="FYDEOS_SHELL_CLIENT_COMMAND_NOTIFICATION"/>
+  <int value="458" label="FYDEOS_SHELL_CLIENT_CUSTOM_NOTIFICATION"/>
 </enum>
 
 <enum name="ExtensionFileWriteResult">
@@ -22628,6 +22631,23 @@ Called by update_extension_histograms.py.-->
   <int value="1462" label="PASSWORDSPRIVATE_OPTINFORACCOUNTSTORAGE"/>
   <int value="1463" label="CRYPTOTOKENPRIVATE_RECORDREGISTERREQUEST"/>
   <int value="1464" label="CRYPTOTOKENPRIVATE_RECORDSIGNREQUEST"/>
+  <int value="1465" label="NATIVE_WINDOWS_GET"/>
+  <int value="1466" label="NATIVE_WINDOWS_GETALL"/>
+  <int value="1467" label="NATIVE_WINDOWS_UPDATE"/>
+  <int value="1468" label="NATIVE_WINDOWS_REMOVE"/>
+  <int value="1469" label="NATIVE_WINDOWS_CREATE"/>
+  <int value="1470" label="APP_MANAGEMENT_GETAPPLIST"/>
+  <int value="1471" label="APP_MANAGEMENT_INSTALLWEBAPP"/>
+  <int value="1472" label="APP_MANAGEMENT_INSTALLARCAPP"/>
+  <int value="1473" label="COMMAND_LINE_HASSWITCH"/>
+  <int value="1474" label="COMMAND_LINE_REMOVESWITCH"/>
+  <int value="1475" label="COMMAND_LINE_ADDSWITCH"/>
+  <int value="1476" label="SHELL_SYNC_EXEC"/>
+  <int value="1477" label="SHELL_ASYNC_EXEC"/>
+  <int value="1478" label="SHELL_GET_TASK_STATE"/>
+  <int value="1479" label="SHELL_GET_TASK_OUTPUT"/>
+  <int value="1480" label="SHELL_GET_DAEMON_STATE"/>
+  <int value="1481" label="SHELL_FORCE_CLOSE_TASK"/>
 </enum>
 
 <enum name="ExtensionIconState">

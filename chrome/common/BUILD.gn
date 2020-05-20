@@ -372,6 +372,9 @@ static_library("common") {
 
       # This dependency is for a header used only by extensions code.
       public_deps += [ "//ash/keyboard/ui" ]
+      #---***FYDEOS BEGIN***--- add fydeos extensions api provider
+      public_deps += [ "//fydeos/extensions/common" ]
+      #---***FYDEOS END***---
     }
   }
 

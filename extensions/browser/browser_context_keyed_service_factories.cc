@@ -42,6 +42,9 @@
 #include "extensions/browser/extension_prefs_factory.h"
 #include "extensions/browser/process_manager_factory.h"
 #include "extensions/browser/renderer_startup_helper.h"
+//---***FYDEOS BEGIN***---
+#include "fydeos/extensions/browser/api/shell_client/shell_client_api.h"
+//---***FYDEOS END***---
 
 namespace extensions {
 
@@ -87,6 +90,9 @@ void EnsureBrowserContextKeyedServiceFactoriesBuilt() {
 #endif
   UsbDeviceManager::GetFactoryInstance();
   WebRequestAPI::GetFactoryInstance();
+  //---***FYDEOS BEGIN***---
+  ShellClientAPI::GetFactoryInstance();
+  //---***FYDEOS END***---
 }
 
 }  // namespace extensions
