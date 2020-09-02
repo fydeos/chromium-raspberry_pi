@@ -11,7 +11,9 @@ declare_args() {
   # Note: this setting is ignored if is_chrome_branded.
   # TODO(thakis): It's strange this is called "_like_official_build" but then
   # checks is_chrome_branded, not is_official_build.
-  fieldtrial_testing_like_official_build = is_chrome_branded
+  # //---***FYDEOS BEGIN***---
+  fieldtrial_testing_like_official_build = true
+  # //---***FYDEOS END***---
 }
 
 fieldtrial_testing_enabled =

@@ -104,7 +104,9 @@ const base::Feature kSwapSideVolumeButtonsForOrientation{
     "SwapSideVolumeButtonsForOrientation", base::FEATURE_ENABLED_BY_DEFAULT};
 
 const base::Feature kEnableBackgroundBlur{"EnableBackgroundBlur",
-                                          base::FEATURE_ENABLED_BY_DEFAULT};
+                                          //---***FYDEOS BEGIN***---
+                                          base::FEATURE_DISABLED_BY_DEFAULT};
+                                          //---***FYDEOS END***---
 
 const base::Feature kHideShelfControlsInTabletMode{
     "HideShelfControlsInTabletMode", base::FEATURE_ENABLED_BY_DEFAULT};

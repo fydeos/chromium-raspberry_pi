@@ -45,6 +45,10 @@
 #include "chromeos/dbus/update_engine_client.h"
 #include "dbus/bus.h"
 #include "dbus/dbus_statistics.h"
+// ---***FYDEOS BEGIN***---
+#include "fydeos/dbus/dbus_clients_fydeos.h"
+#include "fydeos/dbus/fydeos_shell_client.h"
+// ---***FYDEOS END***---
 
 namespace chromeos {
 
@@ -57,6 +61,10 @@ DBusThreadManager::DBusThreadManager(ClientSet client_set,
   if (client_set == DBusThreadManager::kAll)
     clients_browser_.reset(new DBusClientsBrowser(use_real_clients));
   // NOTE: When there are clients only used by ash, create them here.
+  // ---***FYDEOS BEGIN***---
+  if (client_set == DBusThreadManager::kAll)
+    clients_fydeos_.reset(new DBusClientsFydeOS(use_real_clients));
+  // ---***FYDEOS END***---
 
   dbus::statistics::Initialize();
 
@@ -251,6 +259,13 @@ VmPluginDispatcherClient* DBusThreadManager::GetVmPluginDispatcherClient() {
                           : nullptr;
 }
 
+//---***FYDEOS BEGIN***---
+fydeos::FydeOSShellClient* DBusThreadManager::GetFydeOSShellClient() {
+  return clients_fydeos_ ? clients_fydeos_->fydeos_shell_client_.get()
+                          : nullptr;
+}
+//---***FYDEOS END***---
+
 void DBusThreadManager::InitializeClients() {
   // Some clients call DBusThreadManager::Get() during initialization.
   DCHECK(g_dbus_thread_manager);
@@ -261,6 +276,11 @@ void DBusThreadManager::InitializeClients() {
 
   if (clients_browser_)
     clients_browser_->Initialize(GetSystemBus());
+
+  //---***FYDEOS BEGIN***---
+  if (clients_fydeos_)
+    clients_fydeos_->Initialize(GetSystemBus());
+  //---***FYDEOS END***---
 
   if (use_real_clients_)
     VLOG(1) << "DBusThreadManager initialized for Chrome OS";
@@ -416,5 +436,13 @@ void DBusThreadManagerSetter::SetUpdateEngineClient(
   DBusThreadManager::Get()->clients_browser_->update_engine_client_ =
       std::move(client);
 }
+
+//---***FYDEOS BEGIN***---
+void DBusThreadManagerSetter::SetFydeOSShellClient(
+    std::unique_ptr<fydeos::FydeOSShellClient> client) {
+   DBusThreadManager::Get()->clients_fydeos_->fydeos_shell_client_ =
+       std::move(client);
+}
+//---***FYDEOS END***---
 
 }  // namespace chromeos

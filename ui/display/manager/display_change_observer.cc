@@ -35,6 +35,9 @@
 #include "ui/events/devices/device_data_manager.h"
 #include "ui/events/devices/touchscreen_device.h"
 #include "ui/strings/grit/ui_strings.h"
+//---***FYDEOS BEGIN***---
+#include "fydeos/switches/fydeos_switches.h"
+//---***FYDEOS END***---
 
 namespace display {
 namespace {
@@ -360,10 +363,12 @@ ManagedDisplayInfo DisplayChangeObserver::CreateManagedDisplayInfo(
 
   float device_scale_factor = 1.0f;
   // Sets dpi only if the screen size is valid.
-  const float dpi = IsDisplaySizeValid(snapshot->physical_size())
+  //---***FYDEOS BEGIN***---
+  const float dpi = fydeos::switches::GetDefaultScreenDpi(IsDisplaySizeValid(snapshot->physical_size())
                         ? kInchInMm * mode_info->size().width() /
                               snapshot->physical_size().width()
-                        : 0;
+                        : 0);
+  //---***FYDEOS END***---
   constexpr gfx::Size k225DisplaySizeHack(3000, 2000);
 
   if (snapshot->type() == DISPLAY_CONNECTION_TYPE_INTERNAL) {
@@ -382,6 +387,10 @@ ManagedDisplayInfo DisplayChangeObserver::CreateManagedDisplayInfo(
       new_info.set_native(mode.native());
     }
   }
+  //---***FYDEOS BEGIN***---
+  device_scale_factor = fydeos::switches::GetDefaultDSF(device_scale_factor);
+  VLOG(1) << "device_scale_factor:" << device_scale_factor << " dpi:" << dpi;
+  //---***FYDEOS END***---
   new_info.set_device_scale_factor(device_scale_factor);
 
   const gfx::Rect display_bounds(snapshot->origin(), mode_info->size());

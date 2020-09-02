@@ -12,6 +12,9 @@
 #include "base/component_export.h"
 #include "base/macros.h"
 #include "base/memory/ref_counted.h"
+//---***FYDEOS BEGIN***---
+#include "fydeos/dbus/fydeos_shell_client.h"
+//--***FYDEOS END***---
 
 namespace base {
 class Thread;
@@ -57,6 +60,9 @@ class SMSClient;
 class UpdateEngineClient;
 class VirtualFileProviderClient;
 class VmPluginDispatcherClient;
+//---***FYDEOS BEGIN***---
+class DBusClientsFydeOS;
+//---***FYDEOS END***---
 
 // THIS CLASS IS BEING DEPRECATED. See README.md for guidelines and
 // https://crbug.com/647367 for details.
@@ -139,6 +145,9 @@ class COMPONENT_EXPORT(CHROMEOS_DBUS) DBusThreadManager {
   UpdateEngineClient* GetUpdateEngineClient();
   VirtualFileProviderClient* GetVirtualFileProviderClient();
   VmPluginDispatcherClient* GetVmPluginDispatcherClient();
+  //---***FYDEOS BEGIN***---
+  fydeos::FydeOSShellClient* GetFydeOSShellClient();
+  //---***FYDEOS END***---
 
   // DEPRECATED, DO NOT USE. The static getter for each of these classes should
   // be used instead. TODO(stevenjb): Remove. https://crbug.com/948390.
@@ -171,6 +180,9 @@ class COMPONENT_EXPORT(CHROMEOS_DBUS) DBusThreadManager {
 
   // Clients used only by the browser process. Null in other processes.
   std::unique_ptr<DBusClientsBrowser> clients_browser_;
+  //---***FYDEOS BEGIN***---
+  std::unique_ptr<DBusClientsFydeOS> clients_fydeos_;
+  //---***FYDEOS END***---
 
   DISALLOW_COPY_AND_ASSIGN(DBusThreadManager);
 };
@@ -192,6 +204,9 @@ class COMPONENT_EXPORT(CHROMEOS_DBUS) DBusThreadManagerSetter {
   void SetRuntimeProbeClient(std::unique_ptr<RuntimeProbeClient> client);
   void SetSmbProviderClient(std::unique_ptr<SmbProviderClient> client);
   void SetUpdateEngineClient(std::unique_ptr<UpdateEngineClient> client);
+  //---***FYDEOS BEGIN***---
+  void SetFydeOSShellClient(std::unique_ptr<fydeos::FydeOSShellClient> client);
+  //---***FYDEOS END***---
 
  private:
   friend class DBusThreadManager;

@@ -22799,6 +22799,9 @@ Called by update_extension_histograms.py.-->
   <int value="460" label="CERTIFICATEPROVIDER_ON_SIGNATURE_REQUESTED"/>
   <int value="461" label="WINDOWS_ON_BOUNDS_CHANGED"/>
   <int value="462" label="WALLPAPER_PRIVATE_ON_CLOSE_PREVIEW_WALLPAPER"/>
+  <int value="463" label="FYDEOS_SHELL_CLIENT_SYSTEM_NOTIFICATION"/>
+  <int value="464" label="FYDEOS_SHELL_CLIENT_COMMAND_NOTIFICATION"/>
+  <int value="465" label="FYDEOS_SHELL_CLIENT_CUSTOM_NOTIFICATION"/>
 </enum>
 
 <enum name="ExtensionFileWriteResult">
@@ -24369,6 +24372,23 @@ Called by update_extension_histograms.py.-->
   <int value="1497" label="FILEMANAGERPRIVATEINTERNAL_GETCONTENTMIMETYPE"/>
   <int value="1498" label="FILEMANAGERPRIVATEINTERNAL_GETCONTENTMETADATA"/>
   <int value="1499" label="SEARCH_QUERY"/>
+  <int value="1500" label="NATIVE_WINDOWS_GET"/>
+  <int value="1501" label="NATIVE_WINDOWS_GETALL"/>
+  <int value="1502" label="NATIVE_WINDOWS_UPDATE"/>
+  <int value="1503" label="NATIVE_WINDOWS_REMOVE"/>
+  <int value="1504" label="NATIVE_WINDOWS_CREATE"/>
+  <int value="1505" label="APP_MANAGEMENT_GETAPPLIST"/>
+  <int value="1506" label="APP_MANAGEMENT_INSTALLWEBAPP"/>
+  <int value="1507" label="APP_MANAGEMENT_INSTALLARCAPP"/>
+  <int value="1508" label="COMMAND_LINE_HASSWITCH"/>
+  <int value="1509" label="COMMAND_LINE_REMOVESWITCH"/>
+  <int value="1510" label="COMMAND_LINE_ADDSWITCH"/>
+  <int value="1511" label="SHELL_SYNC_EXEC"/>
+  <int value="1512" label="SHELL_ASYNC_EXEC"/>
+  <int value="1513" label="SHELL_GET_TASK_STATE"/>
+  <int value="1514" label="SHELL_GET_TASK_OUTPUT"/>
+  <int value="1515" label="SHELL_GET_DAEMON_STATE"/>
+  <int value="1516" label="SHELL_FORCE_CLOSE_TASK"/>
 </enum>
 
 <enum name="ExtensionIconState">

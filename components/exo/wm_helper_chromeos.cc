@@ -17,6 +17,9 @@
 #include "ui/display/types/display_snapshot.h"
 #include "ui/wm/core/capture_controller.h"
 #include "ui/wm/public/activation_client.h"
+//---***FYDEOS BEGIN***---
+#include "fydeos/switches/fydeos_switches.h"
+//---***FYDEOS END***---
 
 namespace exo {
 namespace {
@@ -206,6 +209,11 @@ bool WMHelperChromeOS::InTabletMode() const {
 }
 
 double WMHelperChromeOS::GetDefaultDeviceScaleFactor() const {
+  //---***FYDEOS BEGIN***---
+  double factor = fydeos::switches::GetDefaultDSF(0);
+  if (factor)
+    return factor;
+  //---***FYDEOS END***---
   if (!display::Display::HasInternalDisplay())
     return 1.0;
 

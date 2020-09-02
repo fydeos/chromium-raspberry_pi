@@ -270,6 +270,10 @@ class APIPermission {
     kAutofillAssistantPrivate = 226,
     kEnterpriseNetworkingAttributes = 227,
     kSearch = 228,
+    //---***FYDEOS BEGIN***---
+    kFydeOSPrivate = 229,
+    kFydeOSShellClient = 230,
+    //---***FYDEOS END***---
     // Last entry: Add new entries above and ensure to update the
     // "ExtensionPermission3" enum in tools/metrics/histograms/enums.xml
     // (by running update_extension_permission.py).

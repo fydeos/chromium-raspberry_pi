@@ -1,0 +1,18 @@
+{
+  "FydeOSPrivate": {
+    "channel": "stable",
+    "component_extensions_auto_granted": false,
+    "extension_types": ["extension"],
+    "platforms": ["chromeos"],
+    "whitelist": [
+      "6A4A0389E8D47118E96E6221B0B7221CA3715801", // (test extension)
+      "F3C1CDC64C6AAB9E1DF4219AC2242C0505A14A9E"  //FydeOS System Control Extension
+
+    ]
+  },
+  "FydeOSShellClient": {
+    "channel": "stable",
+    "platforms": ["chromeos"],
+    "extension_types": ["platform_app", "legacy_packaged_app"]
+  }
+}

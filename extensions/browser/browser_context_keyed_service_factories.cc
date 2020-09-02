@@ -55,6 +55,9 @@
 #if defined(OS_CHROMEOS)
 #include "extensions/browser/api/system_power_source/system_power_source_api.h"
 #endif
+//---***FYDEOS BEGIN***---
+#include "fydeos/extensions/browser/api/shell_client/shell_client_api.h"
+//---***FYDEOS END***---
 
 namespace extensions {
 
@@ -113,6 +116,9 @@ void EnsureBrowserContextKeyedServiceFactoriesBuilt() {
   WebcamPrivateAPI::GetFactoryInstance();
 #endif
   WebRequestAPI::GetFactoryInstance();
+  //---***FYDEOS BEGIN***---
+  ShellClientAPI::GetFactoryInstance();
+  //---***FYDEOS END***---
 }
 
 }  // namespace extensions
