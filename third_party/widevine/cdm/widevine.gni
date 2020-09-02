@@ -11,7 +11,10 @@ declare_args() {
   # on Android and Fuchsia platforms.
   # Can be optionally enabled in Chromium on non-Android platforms. Please see
   # //src/third_party/widevine/LICENSE file for details.
-  enable_widevine = is_chrome_branded || is_android || is_fuchsia
+  #//---***FYDEOS BEGIN***---
+  #enable_widevine = is_chrome_branded || is_android || is_fuchsia
+  enable_widevine = true
+  #//---***FYDEOS END***---
 }
 
 # Disable Widevine when running linux-chromeos.
@@ -42,7 +45,10 @@ enable_widevine_cdm_component =
     enable_library_widevine_cdm && (is_win || is_mac || is_linux)
 
 # Widevine CDM is bundled as part of Google Chrome builds.
-bundle_widevine_cdm = enable_library_widevine_cdm && is_chrome_branded
+#bundle_widevine_cdm = enable_library_widevine_cdm && is_chrome_branded
+#//---***FYDEOS BEGIN***---
+bundle_widevine_cdm = true
+#//---***FYDEOS END***---
 
 # Enable Widevine CDM host verification, which will sign additional binaries
 # with Widevine certs and copy signature files as needed.

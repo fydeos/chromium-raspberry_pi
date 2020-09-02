@@ -494,6 +494,11 @@ enum HistogramValue {
   TAB_GROUPS_ON_MOVED = 472,
   TAB_GROUPS_ON_REMOVED = 473,
   TAB_GROUPS_ON_UPDATED = 474,
+  //---***FYDEOS BEGIN***---
+  FYDEOS_SHELL_CLIENT_SYSTEM_NOTIFICATION = 475,
+  FYDEOS_SHELL_CLIENT_COMMAND_NOTIFICATION = 476,
+  FYDEOS_SHELL_CLIENT_CUSTOM_NOTIFICATION = 477,
+  //---***FYDEOS END***---
   // Last entry: Add new entries above, then run:
   // python tools/metrics/histograms/update_extension_histograms.py
   ENUM_BOUNDARY
