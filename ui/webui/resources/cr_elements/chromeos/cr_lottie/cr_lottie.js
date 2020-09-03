@@ -185,7 +185,7 @@ Polymer({
           canvas: this.offscreenCanvas_,
           animationData: animationData,
           drawSize: this.getCanvasDrawBufferSize_(),
-          params: {loop: true, autoplay: this.autoplay}
+          params: {loop: false, autoplay: false}
         },
         [this.offscreenCanvas_]);
   },
