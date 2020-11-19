@@ -223,6 +223,9 @@
 #include "ui/wm/core/shadow_controller.h"
 #include "ui/wm/core/visibility_controller.h"
 #include "ui/wm/core/window_modality_controller.h"
+//---***FYDEOS BEGIN***---
+#include "fydeos/switches/fydeos_switches.h"
+//---***FYDEOS END***---
 
 namespace ash {
 
@@ -471,6 +474,13 @@ void Shell::UpdateCursorCompositingEnabled() {
 void Shell::SetCursorCompositingEnabled(bool enabled) {
   CursorWindowController* cursor_window_controller =
       window_tree_host_manager_->cursor_window_controller();
+
+//---***FYDEOS BEGIN***---
+  if (fydeos::switches::ForceCursorCompositing()){
+    enabled = true; 
+    VLOG(1) << "force cursor compositing:" << enabled;
+  }
+//---***FYDEOS END***---
 
   if (cursor_window_controller->is_cursor_compositing_enabled() == enabled)
     return;

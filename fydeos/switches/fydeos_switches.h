@@ -44,6 +44,7 @@ CHROMEOS_EXPORT int GetAccelDataPattern();
 
 CHROMEOS_EXPORT float GetDefaultScreenDpi(float default_value);
 CHROMEOS_EXPORT float GetDefaultDSF(float default_value);
+CHROMEOS_EXPORT bool ForceCursorCompositing();
 
 }
 }
