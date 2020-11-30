@@ -247,6 +247,10 @@ EGLImageKHR GenericV4L2Device::CreateEGLImage(
     attrs.push_back(handle.planes[plane].offset);
     attrs.push_back(EGL_DMA_BUF_PLANE0_PITCH_EXT + plane * 3);
     attrs.push_back(handle.planes[plane].stride);
+    attrs.push_back(EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT + plane * 2);
+    attrs.push_back(DRM_FORMAT_MOD_LINEAR & 0xFFFFFFFF);
+    attrs.push_back(EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT + plane * 2);
+    attrs.push_back(DRM_FORMAT_MOD_LINEAR >> 32);
   }
 
   attrs.push_back(EGL_NONE);
