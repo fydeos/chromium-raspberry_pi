@@ -121,6 +121,8 @@ class GLOzoneEGLGbm : public GLOzoneEGL {
     EGLDeviceEXT virgl_device = EGL_NO_DEVICE_EXT;
     EGLDeviceEXT amdgpu_device = EGL_NO_DEVICE_EXT;
     EGLDeviceEXT i915_device = EGL_NO_DEVICE_EXT;
+    EGLDeviceEXT vc4_device = EGL_NO_DEVICE_EXT;
+    EGLDeviceEXT v3d_device = EGL_NO_DEVICE_EXT;
     EGLint num_devices = 0;
 
     eglQueryDevicesEXT(DRM_MAX_MINOR, devices.data(), &num_devices);
@@ -130,12 +132,17 @@ class GLOzoneEGLGbm : public GLOzoneEGL {
           eglQueryDeviceStringEXT(device, EGL_DRM_DEVICE_FILE_EXT);
       if (!filename)  // Not a DRM device.
         continue;
+      VLOG(1) << "request egl device:" << filename;
       if (IsDriverName(filename, "virtio_gpu"))
         virgl_device = device;
       if (IsDriverName(filename, "amdgpu"))
         amdgpu_device = device;
       if (IsDriverName(filename, "i915"))
         i915_device = device;
+      if (IsDriverName(filename, "vc4"))
+        vc4_device = device;
+      if (IsDriverName(filename, "v3d"))
+        v3d_device = device;
     }
 
     if (virgl_device != EGL_NO_DEVICE_EXT) {
@@ -154,6 +161,20 @@ class GLOzoneEGLGbm : public GLOzoneEGL {
     if (i915_device != EGL_NO_DEVICE_EXT) {
       native_display_ = gl::EGLDisplayPlatform(
           reinterpret_cast<EGLNativeDisplayType>(i915_device),
+          EGL_PLATFORM_DEVICE_EXT);
+    }
+    
+    if (v3d_device != EGL_NO_DEVICE_EXT) {
+      VLOG(1) << "set v3d to native display.";
+      native_display_ = gl::EGLDisplayPlatform(
+          reinterpret_cast<EGLNativeDisplayType>(v3d_device),
+          EGL_PLATFORM_DEVICE_EXT);
+    }
+
+    if (vc4_device != EGL_NO_DEVICE_EXT) {
+      VLOG(1) << "set vc4 to native display.";
+      native_display_ = gl::EGLDisplayPlatform(
+          reinterpret_cast<EGLNativeDisplayType>(vc4_device),
           EGL_PLATFORM_DEVICE_EXT);
     }
 
