@@ -34,7 +34,7 @@
 #include "mojo/public/cpp/bindings/pending_receiver.h"
 #include "mojo/public/cpp/bindings/self_owned_receiver.h"
 
-#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
+#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
 #include "chromeos/services/ime/public/mojom/input_engine.mojom.h"
 #include "chromeos/services/machine_learning/public/cpp/handwriting_recognizer_manager.h"
 #include "chromeos/services/machine_learning/public/cpp/service_connection.h"
@@ -56,7 +56,7 @@ namespace extensions {
 namespace {
 #if defined(OS_CHROMEOS)
 
-#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
+#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
 // Resolves InputEngineManager receiver in InputMethodManager.
 void BindInputEngineManager(
     content::RenderFrameHost* render_frame_host,
@@ -116,7 +116,7 @@ void PopulateChromeFrameBindersForExtension(
 
 #if defined(OS_CHROMEOS)
 
-#if !BUILDFLAG(GOOGLE_CHROME_BRANDING)
+#if BUILDFLAG(GOOGLE_CHROME_BRANDING)
   // Registry InputEngineManager for official Google XKB Input only.
   if (extension->id() == chromeos::extension_ime_util::kXkbExtensionId) {
     binder_map->Add<chromeos::ime::mojom::InputEngineManager>(
