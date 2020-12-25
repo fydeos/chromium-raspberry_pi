@@ -26084,6 +26084,7 @@ Called by update_extension_histograms.py.-->
   <int value="1554" label="SHELL_GET_TASK_OUTPUT"/>
   <int value="1555" label="SHELL_GET_DAEMON_STATE"/>
   <int value="1556" label="SHELL_FORCE_CLOSE_TASK"/>
+  <int value="1557" label="APP_MANAGEMENT_GETARCPOLICY"/>
 </enum>
 
 <enum name="ExtensionIconState">

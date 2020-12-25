@@ -18,6 +18,8 @@
 #include "extensions/common/extension_set.h"
 #include "fydeos/extensions/common/api/app_management.h"
 #include "chrome/browser/chromeos/arc/arc_util.h"
+#include "chrome/browser/policy/chrome_policy_conversions_client.h"
+#include "components/policy/core/browser/policy_conversions.h"
 
 namespace extensions{
   const char kAppIdName[] = "appId";
@@ -67,5 +69,16 @@ namespace extensions{
 
   ExtensionFunction::ResponseAction AppManagementInstallArcAppFunction::Run() {
     return RespondNow(NoArguments());
+  }
+
+  ExtensionFunction::ResponseAction AppManagementGetArcPolicyFunction::Run() {
+    auto client = std::make_unique<policy::ChromePolicyConversionsClient>(browser_context());
+    base::Value dict = policy::DictionaryPolicyConversions(std::move(client)).ToValue();
+    const base::Value* arc_policy = dict.FindPath("chromePolicies.ArcPolicy.value");
+    std::string policy_value = "";
+    if (arc_policy) {
+      policy_value = arc_policy->GetString();
+    }
+    return RespondNow(OneArgument(std::make_unique<base::Value>(policy_value)));
   }
 } //exit namespace extensions

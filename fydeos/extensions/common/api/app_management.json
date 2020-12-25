@@ -86,6 +86,22 @@
           },
           {"type": "function", "name": "callback", "optional": true, "parameters": []}
         ]
+      },
+      {
+        "name": "getArcPolicy",
+        "type": "function",
+        "description": "get arc policy",
+        "parameters":[
+          {
+            "name": "callback",
+            "type": "function",
+            "parameters": [
+              {
+                "name": "policy_value", "type": "string"
+              }
+            ]
+          }
+        ]
       }
     ]
 }

@@ -24,5 +24,11 @@ namespace extensions {
     ResponseAction Run() override;
     DECLARE_EXTENSION_FUNCTION("appManagement.installArcApp", APP_MANAGEMENT_INSTALLARCAPP)
   };
+
+  class AppManagementGetArcPolicyFunction: public ExtensionFunction {
+    ~AppManagementGetArcPolicyFunction() override {}
+    ResponseAction Run() override;
+    DECLARE_EXTENSION_FUNCTION("appManagement.getArcPolicy", APP_MANAGEMENT_GETARCPOLICY)
+  };
 }
 #endif // FYDEOS_EXTENSIONS_API_APP_MANAGEMENT_API_H_
