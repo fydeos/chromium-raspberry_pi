@@ -13,7 +13,7 @@
 #include "chrome/browser/extensions/api/tabs/tabs_constants.h"
 #include "fydeos/extensions/common/api/native_windows.h"
 #include "chrome/common/extensions/extension_constants.h"
-#include "ash/public/cpp/window_pin_type.h"
+#include "chromeos/ui/base/window_pin_type.h"
 #include "ash/public/cpp/window_properties.h"
 #include "chrome/browser/ui/browser_command_controller.h"
 #include "ui/aura/window.h"
@@ -76,15 +76,15 @@ namespace extensions{
       return window_list;
     }
 
-    std::unique_ptr<base::DictionaryValue> CreateWindowValueFromNativeWindow(Window* aura_window)
+    base::Value CreateWindowValueFromNativeWindow(Window* aura_window)
     {
-      std::unique_ptr<base::DictionaryValue> result(new base::DictionaryValue());
-      result->SetInteger(keys::kIdKey, aura_window->id());
-      result->SetString(keys::kWindowTypeKey, keys::kWindowTypeValueApp);
+      base::Value result(base::Value::Type::DICTIONARY);
+      result.SetIntKey(keys::kIdKey, aura_window->id());
+      result.SetStringKey(keys::kWindowTypeKey, keys::kWindowTypeValueApp);
       ShelfID shelfId = ShelfID::Deserialize(aura_window->GetProperty(ash::kShelfIDKey));
       if (!shelfId.IsNull()) {
-        result->SetString(kAppIdKey, shelfId.app_id);
-        result->SetString(kLaunchIdKey, shelfId.launch_id);
+        result.SetStringKey(kAppIdKey, shelfId.app_id);
+        result.SetStringKey(kLaunchIdKey, shelfId.launch_id);
       }
       std::string window_state;
       WindowState* aura_window_state = WindowState::Get(aura_window);
@@ -99,13 +99,13 @@ namespace extensions{
       } else {
         window_state = keys::kShowStateValueNormal;
       }
-      result->SetString(keys::kShowStateKey, window_state);
-      result->SetBoolean(keys::kFocusedKey, aura_window_state->IsActive());
+      result.SetStringKey(keys::kShowStateKey, window_state);
+      result.SetBoolKey(keys::kFocusedKey, aura_window_state->IsActive());
       gfx::Rect bounds = aura_window->GetBoundsInScreen();
-      result->SetInteger(keys::kLeftKey, bounds.x());
-      result->SetInteger(keys::kTopKey, bounds.y());
-      result->SetInteger(keys::kWidthKey, bounds.width());
-      result->SetInteger(keys::kHeightKey, bounds.height());
+      result.SetIntKey(keys::kLeftKey, bounds.x());
+      result.SetIntKey(keys::kTopKey, bounds.y());
+      result.SetIntKey(keys::kWidthKey, bounds.width());
+      result.SetIntKey(keys::kHeightKey, bounds.height());
 
       return result;
     }
@@ -137,9 +137,10 @@ namespace extensions{
 
   ExtensionFunction::ResponseAction NativeWindowsGetAllFunction::Run() {
 
-    std::unique_ptr<base::ListValue> window_list(new base::ListValue());
+    base::Value window_list(base::Value::Type::LIST);
+
     for(Window* tmp_window: BuildWindowsForCycleList())
-      window_list->Append(CreateWindowValueFromNativeWindow(tmp_window));
+      window_list.Append(CreateWindowValueFromNativeWindow(tmp_window));
     return RespondNow(OneArgument(std::move(window_list)));
   }
 

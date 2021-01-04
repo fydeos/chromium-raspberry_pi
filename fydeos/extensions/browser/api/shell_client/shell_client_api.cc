@@ -30,15 +30,15 @@ namespace {
     return DBusThreadManager::Get()->GetFydeOSShellClient();
   }
 
-  std::unique_ptr<base::DictionaryValue> CreateStateValueFromState(base::Optional<ShellState> state) {
-    std::unique_ptr<base::DictionaryValue> value(new base::DictionaryValue());
+  base::Value CreateStateValueFromState(base::Optional<ShellState> state) {
+    base::Value value(base::Value::Type::DICTIONARY);
     VLOG(1) << "get state and create value";
     if (!state) {
-      value->SetInteger(kShellCode, -1);
-      value->SetString(kShellResult, "no state return");
+      value.SetIntKey(kShellCode, -1);
+      value.SetStringKey(kShellResult, "no state return");
     }else {
-      value->SetInteger(kShellCode, state->code);
-      value->SetString(kShellResult, state->result);
+      value.SetIntKey(kShellCode, state->code);
+      value.SetStringKey(kShellResult, state->result);
     }
     return value;
   }

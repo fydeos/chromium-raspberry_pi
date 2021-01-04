@@ -11,6 +11,7 @@
 #include <utility>
 #include <vector>
 
+#include "base/values.h"
 #include "chrome/browser/ui/app_list/arc/arc_app_list_prefs.h"
 #include "chrome/browser/profiles/profile.h"
 #include "extensions/browser/extension_registry.h"
@@ -33,17 +34,17 @@ namespace extensions{
       return extensions::ExtensionRegistry::Get(context)->enabled_extensions().GetIDs();
     }
 
-    std::unique_ptr<base::DictionaryValue> CreateWebAppInfo(std::string app_id) {
-      std::unique_ptr<base::DictionaryValue> result(new base::DictionaryValue());
-      result->SetString(kAppIdName, app_id);
-      result->SetString(kAppTypeName, kWebApp);
+    base::Value CreateWebAppInfo(std::string app_id) {
+      base::Value result(base::Value::Type::DICTIONARY);
+      result.SetStringKey(kAppIdName, app_id);
+      result.SetStringKey(kAppTypeName, kWebApp);
       return result;
     }
 
-    std::unique_ptr<base::DictionaryValue> CreateArcAppInfo(std::string app_id) {
-      std::unique_ptr<base::DictionaryValue> result(new base::DictionaryValue());
-      result->SetString(kAppIdName, app_id);
-      result->SetString(kAppTypeName, kArcApp);
+    base::Value CreateArcAppInfo(std::string app_id) {
+      base::Value result(base::Value::Type::DICTIONARY);
+      result.SetStringKey(kAppIdName, app_id);
+      result.SetStringKey(kAppTypeName, kArcApp);
       return result;
     }
 
@@ -51,12 +52,12 @@ namespace extensions{
 
   ExtensionFunction::ResponseAction AppManagementGetAppListFunction::Run() {
     Profile* profile = Profile::FromBrowserContext(browser_context());
-    std::unique_ptr<base::ListValue> app_list(new base::ListValue());
+    base::Value app_list(base::Value::Type::LIST);
     for(std::string app_id: GetExtensionIdSet(browser_context()))
-      app_list->Append(CreateWebAppInfo(app_id));
+      app_list.Append(CreateWebAppInfo(app_id));
     if (arc::IsArcAllowedForProfile(profile))
       for(std::string app_id: GetArcAppIdList(browser_context()))
-        app_list->Append(CreateArcAppInfo(app_id));
+        app_list.Append(CreateArcAppInfo(app_id));
     return RespondNow(OneArgument(std::move(app_list)));
   }
 
