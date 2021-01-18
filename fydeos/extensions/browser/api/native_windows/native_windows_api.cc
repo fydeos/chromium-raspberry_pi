@@ -20,8 +20,9 @@
 #include "ash/shell.h"
 #include "ash/public/cpp/shelf_types.h"
 #include "ash/public/cpp/shell_window_ids.h"
-#include "ash/wm/window_cycle_controller.h"
-#include "ash/wm/window_cycle_list.h"
+#include "ash/public/cpp/app_types.h"
+#include "ash/wm/window_cycle/window_cycle_controller.h"
+#include "ash/wm/window_cycle/window_cycle_list.h"
 #include "ash/wm/window_state.h"
 #include "ash/wm/window_util.h"
 #include "ash/wm/window_state_util.h"
@@ -176,7 +177,7 @@ namespace extensions{
     if (!GetWindowFromWindowID(params->window_id, &target_window))
       return RespondNow(Error(keys::kNoCurrentWindowError));
 
-    if (arc::IsArcAppWindow(target_window)){
+    if (ash::IsArcWindow(target_window)){
       int task_id = arc::GetWindowTaskId(target_window);
       if (task_id == -1)
         return RespondNow(Error(keys::kNoCurrentWindowError));

@@ -79,6 +79,6 @@ namespace extensions{
     if (arc_policy) {
       policy_value = arc_policy->GetString();
     }
-    return RespondNow(OneArgument(std::make_unique<base::Value>(policy_value)));
+    return RespondNow(OneArgument(base::Value(policy_value)));
   }
 } //exit namespace extensions
