@@ -126,6 +126,7 @@ display::DisplayConnectionType GetDisplayType(drmModeConnector* connector) {
     case DRM_MODE_CONNECTOR_DVIA:
       return display::DISPLAY_CONNECTION_TYPE_DVI;
     case DRM_MODE_CONNECTOR_VIRTUAL:
+      return display::DISPLAY_CONNECTION_TYPE_UNKNOWN;
       // A display on VM is treated as an internal display.
     case DRM_MODE_CONNECTOR_LVDS:
     case DRM_MODE_CONNECTOR_eDP:
