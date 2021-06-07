@@ -161,6 +161,9 @@ constexpr APIPermissionInfo::InitInfo permissions_to_register[] = {
     {APIPermissionID::kDeclarativeNetRequestFeedback,
      declarative_net_request::kFeedbackAPIPermission,
      APIPermissionInfo::kFlagRequiresManagementUIWarning},
+     //---***FYDEOS BEGIN***---
+    {APIPermissionID::kFydeOSPrivate, "FydeOSPrivate", APIPermissionInfo::kFlagCannotBeOptional},
+     //---***FYDEOS END***---
 };
 
 }  // namespace

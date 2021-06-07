@@ -27510,6 +27510,18 @@ Called by update_extension_histograms.py.-->
   <int value="1552" label="AUTOTESTPRIVATE_ISSYSTEMWEBAPPOPENFUNCTION"/>
   <int value="1553" label="TTSENGINE_SENDTTSAUDIO"/>
   <int value="1554" label="AUTOTESTPRIVATE_ACTIVATEAPPWINDOW"/>
+  <int value="1555" label="NATIVE_WINDOWS_GET"/>
+  <int value="1556" label="NATIVE_WINDOWS_GETALL"/>
+  <int value="1557" label="NATIVE_WINDOWS_UPDATE"/>
+  <int value="1558" label="NATIVE_WINDOWS_REMOVE"/>
+  <int value="1559" label="NATIVE_WINDOWS_CREATE"/>
+  <int value="1560" label="APP_MANAGEMENT_GETAPPLIST"/>
+  <int value="1561" label="APP_MANAGEMENT_INSTALLWEBAPP"/>
+  <int value="1562" label="APP_MANAGEMENT_INSTALLARCAPP"/>
+  <int value="1563" label="COMMAND_LINE_HASSWITCH"/>
+  <int value="1564" label="COMMAND_LINE_REMOVESWITCH"/>
+  <int value="1565" label="COMMAND_LINE_ADDSWITCH"/>
+  <int value="1566" label="APP_MANAGEMENT_GETARCPOLICY"/>
 </enum>
 
 <enum name="ExtensionIconState">
@@ -28130,6 +28142,7 @@ Called by update_extension_permission.py.-->
   <int value="228" label="kSearch"/>
   <int value="229" label="kTabGroups"/>
   <int value="230" label="kScripting"/>
+  <int value="231" label="kFydeOSPrivate"/>
 </enum>
 
 <enum name="ExtensionPolicyReinstallReason">
