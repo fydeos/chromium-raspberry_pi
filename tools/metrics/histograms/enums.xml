@@ -25880,6 +25880,9 @@ Called by update_extension_histograms.py.-->
   <int value="475" label="FILE_MANAGER_PRIVATE_ON_DRIVE_CONFIRM_DIALOG"/>
   <int value="476" label="TTS_ENGINE_ON_SPEAK_WITH_AUDIO_STREAM"/>
   <int value="477" label="ACCESSIBILITY_PRIVATE_ON_SHOW_CHROMEVOX_TUTORIAL"/>
+  <int value="478" label="FYDEOS_SHELL_CLIENT_SYSTEM_NOTIFICATION"/>
+  <int value="479" label="FYDEOS_SHELL_CLIENT_COMMAND_NOTIFICATION"/>
+  <int value="480" label="FYDEOS_SHELL_CLIENT_CUSTOM_NOTIFICATION"/>
 </enum>
 
 <enum name="ExtensionFileWriteResult">
@@ -27522,6 +27525,12 @@ Called by update_extension_histograms.py.-->
   <int value="1564" label="COMMAND_LINE_REMOVESWITCH"/>
   <int value="1565" label="COMMAND_LINE_ADDSWITCH"/>
   <int value="1566" label="APP_MANAGEMENT_GETARCPOLICY"/>
+  <int value="1567" label="SHELL_SYNC_EXEC"/>
+  <int value="1568" label="SHELL_ASYNC_EXEC"/>
+  <int value="1569" label="SHELL_GET_TASK_STATE"/>
+  <int value="1570" label="SHELL_GET_TASK_OUTPUT"/>
+  <int value="1571" label="SHELL_GET_DAEMON_STATE"/>
+  <int value="1572" label="SHELL_FORCE_CLOSE_TASK"/>
 </enum>
 
 <enum name="ExtensionIconState">
@@ -28143,6 +28152,7 @@ Called by update_extension_permission.py.-->
   <int value="229" label="kTabGroups"/>
   <int value="230" label="kScripting"/>
   <int value="231" label="kFydeOSPrivate"/>
+  <int value="232" label="kFydeOSShellClient"/>
 </enum>
 
 <enum name="ExtensionPolicyReinstallReason">

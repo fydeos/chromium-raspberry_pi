@@ -256,6 +256,7 @@ enum APIPermissionID {
   kScripting = 230,
   //---***FYDEOS BEGIN***---
   kFydeOSPrivate = 231,
+  kFydeOSShellClient = 232,
   //---***FYDEOS END***---
 
   // Add new entries at the end of the enum and be sure to update the
