@@ -2252,6 +2252,7 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
       //---***FYDEOS BEGIN***---
       fydeos::switches::kForceLegacyPlaneManager,
       fydeos::switches::kForceShowCursor,
+      fydeos::switches::kUseRpiVideoDecoder,
       //---***FYDEOS END***---
   };
   command_line->CopySwitchesFrom(browser_command_line, kCommonSwitchNames,

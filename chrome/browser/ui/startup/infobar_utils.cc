@@ -26,6 +26,9 @@
 #include "content/public/common/content_switches.h"
 #include "google_apis/google_api_keys.h"
 
+//---***FYDEOS BEGIN***---
+#include "fydeos/switches/display/display_switches.h"
+//---***FYDEOS END***---
 namespace {
 bool ShouldShowBadFlagsSecurityWarnings() {
 #if !BUILDFLAG(IS_CHROMEOS_ASH)
@@ -41,6 +44,11 @@ bool ShouldShowBadFlagsSecurityWarnings() {
   if (pref->IsManaged())
     return pref->GetValue()->GetBool();
 #endif
+  //---***FYDEOS BEGIN***---
+  // TODO add rpi mmal decoder related files to sandbox to remove no-sandbox
+  if (fydeos::switches::UseRpiVideoDecoder())
+    return false;
+  //---***FYDEOS END***---
   return true;
 }
 
