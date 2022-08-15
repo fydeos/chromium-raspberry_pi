@@ -3893,6 +3893,16 @@
       "features": [
         "disable_accelerated_h264_encode"
       ]
+    },
+    {
+      "id": 386,
+      "description": "The Mali-Lxx driver does not guarantee flush ordering",
+      "cr_bugs": [678508],
+      "gl_vendor": "ARM",
+      "gl_renderer": "Mali-L.*",
+      "features": [
+        "use_virtualized_gl_contexts"
+      ]
     }
   ]
 }

@@ -1152,7 +1152,8 @@
         { "gl_renderer": "Mali-G.*",
           "subpixel_font_rendering": "unsupported"},
         { "gl_renderer": "PowerVR.*" },
-        { "vendor_id": "0x1002" }
+        { "vendor_id": "0x1002" },
+        { "gl_renderer": "Mali-L.*" }
       ]
     },
     {
