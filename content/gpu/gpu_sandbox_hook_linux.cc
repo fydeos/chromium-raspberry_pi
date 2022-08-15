@@ -89,6 +89,7 @@ static const char kLibTegraPath[] = "/usr/lib64/libtegrav4l2.so";
 static const char kLibV4l2Path[] = "/usr/lib64/libv4l2.so";
 static const char kLibV4lEncPluginPath[] =
     "/usr/lib64/libv4l/plugins/libv4l-encplugin.so";
+static const char kLibRkMppPath[] = "/usr/lib64/librockchip_mpp.so.1";
 #else
 static const char kLibGlesPath[] = "/usr/lib/libGLESv2.so.2";
 static const char kLibEglPath[] = "/usr/lib/libEGL.so.1";
@@ -97,6 +98,7 @@ static const char kLibTegraPath[] = "/usr/lib/libtegrav4l2.so";
 static const char kLibV4l2Path[] = "/usr/lib/libv4l2.so";
 static const char kLibV4lEncPluginPath[] =
     "/usr/lib/libv4l/plugins/libv4l-encplugin.so";
+static const char kLibRkMppPath[] = "/usr/lib/librockchip_mpp.so.1";
 #endif
 
 constexpr int dlopen_flag = RTLD_NOW | RTLD_GLOBAL | RTLD_NODELETE;
@@ -127,6 +129,11 @@ void AddV4L2GpuPermissions(
           BrokerFilePermission::ReadWrite(mediaDevicePath.str()));
     }
   }
+  // Video decoder of rk3588
+  static const char kDevRkMppPath[] = "/dev/mpp_service";
+  permissions->push_back(BrokerFilePermission::ReadWrite(kDevRkMppPath));
+  static const char kDevRkRgaPath[] = "/dev/rga";
+  permissions->push_back(BrokerFilePermission::ReadWrite(kDevRkRgaPath));
 
   // Image processor used on ARM platforms.
   static const char kDevImageProc0Path[] = "/dev/image-proc0";
@@ -279,6 +286,7 @@ void AddArmGpuPermissions(std::vector<BrokerFilePermission>* permissions) {
   permissions->push_back(BrokerFilePermission::ReadOnly(kLdSoCache));
   permissions->push_back(BrokerFilePermission::ReadOnly(kLibGlesPath));
   permissions->push_back(BrokerFilePermission::ReadOnly(kLibEglPath));
+  permissions->push_back(BrokerFilePermission::ReadOnly(kLibRkMppPath));
 
   AddArmMaliGpuPermissions(permissions);
 }
@@ -472,11 +480,18 @@ bool IsAcceleratedVideoEnabled(
 void LoadV4L2Libraries(
     const sandbox::policy::SandboxSeccompBPF::Options& options) {
   if (IsAcceleratedVideoEnabled(options) && UseLibV4L2()) {
-    dlopen(kLibV4l2Path, dlopen_flag);
-
+    if (!dlopen(kLibV4l2Path, dlopen_flag)) {
+      LOG(WARNING) << "load:" << kLibV4l2Path << " err:" << dlerror();
+    } else {
+      LOG(INFO) << "load:" << kLibV4l2Path << " success";
+    }
     if (options.accelerated_video_encode_enabled) {
       // This is a device-specific encoder plugin.
-      dlopen(kLibV4lEncPluginPath, dlopen_flag);
+      if (!dlopen(kLibV4lEncPluginPath, dlopen_flag)){
+        LOG(WARNING) << "load:" << kLibV4lEncPluginPath << dlerror();
+      }else{
+        LOG(INFO) << "load:" << kLibV4lEncPluginPath << " success";
+      }
     }
   }
 }

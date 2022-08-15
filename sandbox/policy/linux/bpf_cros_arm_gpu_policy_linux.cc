@@ -43,6 +43,9 @@ ResultExpr CrosArmGpuProcessPolicy::EvaluateSyscall(int sysno) const {
 #endif  // defined(__arm__) || defined(__aarch64__)
 
   switch (sysno) {
+#if defined(__aarch64__)
+    case __NR_mmap:
+#endif
 #if defined(__arm__) || defined(__aarch64__)
     // ARM GPU sandbox is started earlier so we need to allow networking
     // in the sandbox.
@@ -57,9 +60,13 @@ ResultExpr CrosArmGpuProcessPolicy::EvaluateSyscall(int sysno) const {
     // which hooks into dlopen(), LD_PRELOAD, and --preload.
     // https://chromium-review.googlesource.com/c/chromiumos/overlays/chromiumos-overlay/+/2910526
     case __NR_fstatfs:
+    case __NR_ioctl:
+    case __NR_madvise:
+    case __NR_futex:
 #if defined(__arm__)
     // Only available on ARM 32bit devices
     case __NR_fstatfs64:
+    case __NR_mmap2:
 #endif
       return Allow();
     // Allow only AF_UNIX for |domain|.

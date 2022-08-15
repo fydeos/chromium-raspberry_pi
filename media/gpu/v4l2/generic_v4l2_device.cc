@@ -115,7 +115,7 @@ bool GenericV4L2Device::Poll(bool poll_device, bool* event_pending) {
     VPLOGF(1) << "poll() failed";
     return false;
   }
-  *event_pending = (pollfd != -1 && pollfds[pollfd].revents & POLLPRI);
+  *event_pending = (pollfd != -1 && pollfds[pollfd].revents & POLLIN);
   return true;
 }
 
@@ -125,10 +125,19 @@ void* GenericV4L2Device::Mmap(void* addr,
                               int flags,
                               unsigned int offset) {
   DCHECK(device_fd_.is_valid());
+  if (use_libv4l2_) {
+    VPLOGF(1) << "v4l2_mmap";
+    return v4l2_mmap(addr, len, prot, flags, device_fd_.get(), offset);
+  }
+  VPLOGF(1) << "system_mmap";
   return mmap(addr, len, prot, flags, device_fd_.get(), offset);
 }
 
 void GenericV4L2Device::Munmap(void* addr, unsigned int len) {
+  if (use_libv4l2_) {
+    v4l2_munmap(addr, len);
+    return;
+  }
   munmap(addr, len);
 }
 
@@ -441,7 +450,7 @@ bool GenericV4L2Device::OpenDevicePath(const std::string& path, Type type) {
     return false;
 
 #if BUILDFLAG(USE_LIBV4L2)
-  if (type == Type::kEncoder &&
+  if (/*type == Type::kEncoder &&*/
       HANDLE_EINTR(v4l2_fd_open(device_fd_.get(), V4L2_DISABLE_CONVERSION)) !=
           -1) {
     DVLOGF(3) << "Using libv4l2 for " << path;
