@@ -285,8 +285,7 @@ bool OwnerSettingsServiceAsh::IsOwner() {
 }
 
 void OwnerSettingsServiceAsh::IsOwnerAsync(IsOwnerCallback callback) {
-  bool tpm_fallback = true;
-  if (InstallAttributes::Get()->IsEnterpriseManaged() || tpm_fallback) {
+  if (InstallAttributes::Get()->IsEnterpriseManaged()) {
     base::ThreadTaskRunnerHandle::Get()->PostTask(
         FROM_HERE, base::BindOnce(std::move(callback), false));
     return;
